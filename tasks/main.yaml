@@ -1,0 +1,17 @@
+---
+
+- name: Clone stationmaster repo
+  git: repo='https://github.com/radify/stationmaster.git'
+       dest={{ base }} depth=1
+
+- name: Create an index csv if not exists
+  copy: src=stationmaster.csv dest={{ base }}/public/stationmaster.csv force=no
+
+- action: shell date '+%F.%H:%M:%S'
+  register: mydate
+
+- name: Update deployment CSV
+  lineinfile:
+    dest={{ base }}/public/stationmaster.csv regexp={{ branch }}
+    line="{{ branch }}.{{ devdomain }},{{ mydate.stdout }}"
+    insertafter=EOF
