@@ -4,6 +4,16 @@ galaxy_info:
   description: "Ansible playbook to support https://github.com/radify/stationmaster. Takes care of updating StationMaster's CSV"
   min_ansible_version: 1.3
   license: https://github.com/radify/stationmaster-ansible/blob/master/LICENSE
+  platforms:
+    - name: Ubuntu
+      versions:
+        - saucy
+        - precise
+        - lucid
+    - name: Debian
+      versions:
+        - wheezy
+        - squeeze
   categories:
   - monitoring
   dependencies: []
