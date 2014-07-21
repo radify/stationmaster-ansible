@@ -1,0 +1,9 @@
+---
+galaxy_info:
+  author: Radify, LLC
+  description: "Ansible playbook to support https://github.com/radify/stationmaster. Takes care of updating StationMaster's CSV"
+  min_ansible_version: 1.3
+  license: https://github.com/radify/stationmaster-ansible/blob/master/LICENSE
+  categories:
+  - monitoring
+  dependencies: []
