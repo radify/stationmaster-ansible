@@ -40,8 +40,6 @@ So, this means that it's your responsibility to do things like:
 
 ### Installing StationMaster through Ansible Galaxy
 
-(TODO what will our package name be? this will need to change if we change it. Also we'd need to test this)
-
 ```bash
 ansible-galaxy install radify.stationmaster
 ```
