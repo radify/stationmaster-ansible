@@ -46,13 +46,13 @@ ansible-galaxy install radify.stationmaster
 
 ### Example Playbook
 
-Then, from within one of your playbooks, you could do something like creating a playbook `stationmaster.yaml` and using the `add` tag:
+Then, from within one of your playbooks, you could do something like creating a playbook `stationmaster.yaml` and using the `add` action:
 
 ```yaml
 ---
 - hosts: all
   roles:
-  - { role: radify.stationmaster, base: "/opt/stationmaster", devdomain: dev.company.com, branch: branch, protocol: 'https', tags: ['add'] }
+  - { role: radify.stationmaster, base: "/opt/stationmaster", devdomain: dev.company.com, branch: branch, protocol: 'https', action: 'add' }
 ```
 
 Then you can do something like:
@@ -61,14 +61,14 @@ Then you can do something like:
 ansible-playbook -i path/to/custom-inventory stationmaster.yaml
 ```
 
-Removing is symmetrical using the `remove` tag:
+Removing is symmetrical using the `remove` action:
 
 ```yaml
 ---
 - hosts: all
   sudo: yes
   roles:
-    - { role: stationmaster, tags: ['remove'], branch: branch }
+    - { role: stationmaster, action: 'remove', branch: branch }
 ```
 
 ## Without using Ansible Galaxy
@@ -81,9 +81,7 @@ You can also check out stationmaster-ansible to a directory and include it. If y
 Here's an example of checking out StationMaster to /opt/stationmaster and adding a branch to it:
 
 ```yaml
-- include: /private/var/www/stationmaster-ansible/tasks/main.yml base=/opt/stationmaster devdomain=dev.company.com branch={{branch}} protocol='https'
-    tags:
-    - add
+- include: /private/var/www/stationmaster-ansible/tasks/main.yml base=/opt/stationmaster devdomain=dev.company.com branch={{branch}} protocol='https' action=add
 ```
 
 ### Removing via StationMaster
@@ -91,7 +89,5 @@ Here's an example of checking out StationMaster to /opt/stationmaster and adding
 This is symmetrical to the adding:
 
 ```yaml
-- include: /private/var/www/stationmaster-ansible/tasks/remove.yml base=/opt/stationmaster devdomain=dev.company.com branch={{branch}} protocol='https'
-    tags:
-    - remove
+- include: /private/var/www/stationmaster-ansible/tasks/remove.yml base=/opt/stationmaster devdomain=dev.company.com branch={{branch}} protocol='https' action=remove
 ```

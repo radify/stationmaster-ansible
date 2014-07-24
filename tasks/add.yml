@@ -9,7 +9,7 @@
 - action: shell date '+%F.%H:%M:%S'
   register: mydate
 
-- name: Update deployment CSV
+- name: Update deployment CSV; add branch
   lineinfile:
     dest={{ base }}/public/stationmaster.csv regexp={{ branch }}
     line="{{protocol}}://{{ branch }}.{{ devdomain }},{{ mydate.stdout }}"

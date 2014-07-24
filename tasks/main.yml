@@ -1,8 +1,6 @@
 ---
 - include: add.yml
-  tags:
-   - add
+  when: action == "add"
 
 - include: remove.yml
-  tags:
-   - remove
+  when: action == "remove"

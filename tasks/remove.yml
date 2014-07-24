@@ -1,6 +1,5 @@
 ---
-
-- name: Update deployment CSV
+- name: Update deployment CSV; remove branch
   lineinfile:
     dest={{ base }}/public/stationmaster.csv
     regexp={{ branch }}
