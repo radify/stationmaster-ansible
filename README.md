@@ -46,16 +46,13 @@ ansible-galaxy install radify.stationmaster
 
 ### Example Playbook
 
-Then, from within one of your playbooks, you could do something like creating a playbook `stationmaster.yaml`:
+Then, from within one of your playbooks, you could do something like creating a playbook `stationmaster.yaml` and using the `add` tag:
 
 ```yaml
 ---
 - hosts: all
   roles:
-  - stationmaster
-    base=/opt/company/company-ui
-    devdomain=dev.company.com
-    branch=foo
+  - { role: radify.stationmaster, base: "/opt/stationmaster", devdomain: dev.company.com, branch: branch, protocol: 'https', tags: ['add'] }
 ```
 
 Then you can do something like:
@@ -64,12 +61,29 @@ Then you can do something like:
 ansible-playbook -i path/to/custom-inventory stationmaster.yaml
 ```
 
+Removing is symmetrical using the `remove` tag:
+
+```yaml
+---
+- hosts: all
+  sudo: yes
+  roles:
+    - { role: stationmaster, tags: ['remove'], branch: branch }
+```
+
+## Without using Ansible Galaxy
+
+You can also check out stationmaster-ansible to a directory and include it. If you don't want to use Ansible Galaxy for some reason, you can clone this repository and use an include statement from within a task. See the notes on [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+
+
 ### Adding via StationMaster
 
 Here's an example of checking out StationMaster to /opt/stationmaster and adding a branch to it:
 
 ```yaml
-- include: /private/var/www/stationmaster-ansible/tasks/main.yaml base=/opt/stationmaster devdomain=dev.company.com branch={{branch}}
+- include: /private/var/www/stationmaster-ansible/tasks/main.yml base=/opt/stationmaster devdomain=dev.company.com branch={{branch}} protocol='https'
+    tags:
+    - add
 ```
 
 ### Removing via StationMaster
@@ -77,9 +91,7 @@ Here's an example of checking out StationMaster to /opt/stationmaster and adding
 This is symmetrical to the adding:
 
 ```yaml
-- include: /private/var/www/stationmaster-ansible/tasks/remove.yaml base=/opt/stationmaster devdomain=dev.company.com branch={{branch}}
+- include: /private/var/www/stationmaster-ansible/tasks/remove.yml base=/opt/stationmaster devdomain=dev.company.com branch={{branch}} protocol='https'
+    tags:
+    - remove
 ```
-
-### Including it in your Ansible playbook
-
-If you don't want to use Ansible Galaxy for some reason, you can clone this repository and use an include statement from within a task. See the notes on [CONTRIBUTING.md](CONTRIBUTING.md) for details.
